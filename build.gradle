@@ -1,8 +1,8 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.1.6'
+    id 'org.springframework.boot' version '3.2.0'
     id 'io.spring.dependency-management' version '1.1.4'
-    id 'com.vaadin' version '24.2.5'
+    id 'com.vaadin' version '24.2.6'
 }
 
 group = 'com'
@@ -14,10 +14,13 @@ java {
 
 repositories {
     mavenCentral()
+    maven{
+        url'https://maven.vaadin.com/vaadin-addons'
+    }
 }
 
 ext {
-    set('vaadinVersion', "24.2.5")
+    set('vaadinVersion', "24.2.6")
 }
 
 dependencies {
@@ -25,6 +28,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'com.vaadin:vaadin-spring-boot-starter'
+    implementation 'org.vaadin.crudui:crudui:7.1.0'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.mysql:mysql-connector-j'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
