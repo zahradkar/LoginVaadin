@@ -3,6 +3,7 @@ package com.loginvaadin.backend.services;
 import com.loginvaadin.backend.entities.User;
 import com.loginvaadin.backend.repositories.UserRepository;
 import com.loginvaadin.backend.security.SecurityUser;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,9 +30,9 @@ public class UserService implements UserDetailsService {
 		return user;
 	}
 
-	public User registerNewUser(String username, String password) {
+	public void registerNewUser(String username, String password) {
 //		if (!isUserRegistered(username))
-		return userRepository.save(new User(username, passwordEncoder.encode(password)));
+		userRepository.save(new User(username, passwordEncoder.encode(password)));
 	}
 
 	public boolean isRegistered(String username) {
@@ -39,8 +40,9 @@ public class UserService implements UserDetailsService {
 	}
 
 	@Override
+	@Transactional
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		var user = userRepository.findByUsername(username);
-		return user.map(SecurityUser::new).orElseThrow(() -> new UsernameNotFoundException("Username not found " + username));
+		User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
+		return SecurityUser.build(user);
 	}
 }

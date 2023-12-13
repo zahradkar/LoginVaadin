@@ -7,8 +7,8 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 
 @Route("")
 @AnonymousAllowed
-public class HomeView extends VerticalLayout {
-	public HomeView() {
-		add(new H1("Home view"));
+public class AnonymousView extends VerticalLayout {
+	public AnonymousView() {
+		add(new H1("Home (anonymous) view"));
 	}
 }
