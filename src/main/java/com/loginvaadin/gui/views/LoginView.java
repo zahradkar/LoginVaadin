@@ -1,14 +1,16 @@
 package com.loginvaadin.gui.views;
 
+import com.vaadin.flow.component.Composite;
 import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.login.LoginForm;
+import com.vaadin.flow.component.login.LoginOverlay;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 
 @Route("login")
-@PageTitle("Vaadin login ")
+/*@PageTitle("Vaadin login")
 @AnonymousAllowed
 public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 
@@ -35,5 +37,12 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 				.containsKey("error")) {
 			login.setError(true);
 		}
+	}
+}*/
+public class LoginView extends Composite<LoginOverlay> {
+	public LoginView() {
+		// TODO add logout
+		getContent().setOpened(true);
+		getContent().setAction("login");
 	}
 }
