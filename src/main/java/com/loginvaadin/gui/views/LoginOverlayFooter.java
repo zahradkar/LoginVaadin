@@ -17,10 +17,7 @@ public class LoginOverlayFooter extends Div implements BeforeEnterObserver {
 		loginOverlay.setForgotPasswordButtonVisible(false);
 		var btnRegister = new Button("Not registered?");
 		btnRegister.setSizeFull();
-		btnRegister.addClickListener(buttonClickEvent -> {
-			getUI().ifPresent(ui -> ui.getPage().setLocation("http://localhost:8080/register")
-			);
-		});
+		btnRegister.addClickListener(buttonClickEvent -> getUI().ifPresent(ui -> ui.getPage().setLocation("http://localhost:8080/register")));
 		loginOverlay.getFooter().add(btnRegister);
 		// end::snippet[]
 		add(loginOverlay);

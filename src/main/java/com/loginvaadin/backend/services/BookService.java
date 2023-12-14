@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.vaadin.crudui.crud.CrudListener;
 
 import java.util.Collection;
+
 @Service
 public class BookService implements CrudListener<Book> {
 	private final BookRepository bookRepository;

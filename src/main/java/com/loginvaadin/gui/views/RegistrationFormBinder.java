@@ -56,8 +56,9 @@ public class RegistrationFormBinder {
 
 	private ValidationResult passwordValidator(String pass1, ValueContext ctx) {
 		// todo improve
-		if (pass1.length() < 8)
-			return ValidationResult.error("Password should be at least 8 characters long");
+		final byte MIN_PASS_LENGTH = 4;
+		if (pass1.length() < MIN_PASS_LENGTH)
+			return ValidationResult.error("Password should be at least " + MIN_PASS_LENGTH + " characters long");
 
 		if (!enablePasswordValidation) {
 			// user hasn't visited the field yet, so don't validate just yet, but next time.
