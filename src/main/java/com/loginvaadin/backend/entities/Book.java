@@ -1,6 +1,7 @@
 package com.loginvaadin.backend.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDate;
 
@@ -10,7 +11,9 @@ public class Book {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	@NotBlank
 	private String title;
+	private String author;
 	private LocalDate published;
 	private int rating;
 
@@ -21,6 +24,14 @@ public class Book {
 		this.title = title;
 		this.published = published;
 		this.rating = rating;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 
 	public long getId() {
