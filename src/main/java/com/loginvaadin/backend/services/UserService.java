@@ -18,13 +18,11 @@ public class UserService {
 		this.passwordEncoder = passwordEncoder;
 	}
 
-	public void registerNewUser(String username, String password) {
-//		if (!isUserRegistered(username))
-		logger.info("Registering a new user!");
-		userRepository.save(new User(username, passwordEncoder.encode(password)));
-	}
+	public void add(String username, String password) {
+		if (userRepository.existsUsersByUsername(username))
+			throw new IllegalArgumentException("Username already exists");
 
-	public boolean isRegistered(String username) {
-		return userRepository.existsUsersByUsername(username);
+		userRepository.save(new User(username, passwordEncoder.encode(password)));
+		logger.info("User " + username + " stored in the database!");
 	}
 }

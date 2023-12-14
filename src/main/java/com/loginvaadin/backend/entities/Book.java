@@ -12,6 +12,7 @@ public class Book {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@NotBlank
+	@Column(nullable = false)
 	private String title;
 	private String author;
 	private LocalDate published;
@@ -20,8 +21,9 @@ public class Book {
 	public Book() {
 	}
 
-	public Book(String title, LocalDate published, int rating) {
+	public Book(String title, String author, LocalDate published, int rating) {
 		this.title = title;
+		this.author = author;
 		this.published = published;
 		this.rating = rating;
 	}

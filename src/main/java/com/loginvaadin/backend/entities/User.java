@@ -3,6 +3,7 @@ package com.loginvaadin.backend.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,18 +11,18 @@ import java.util.Set;
 @Table(name = "users")
 public class User {
 	@Id
-	@Column(unique = true)
+	@Column(unique = true, nullable = false)
 	@NotBlank
 	private String username;
+	@NotBlank
 	private String password;
 	@Enumerated(EnumType.STRING)
 	@ElementCollection(fetch = FetchType.EAGER)
-	private Set<Role> roles = new HashSet<>();
+	private Set<Role> roles = new HashSet<>(Collections.singletonList(Role.USER));
 
 	public User(String username, String password) {
 		this.username = username;
 		this.password = password;
-		roles.add(Role.USER);
 	}
 
 	public User() {

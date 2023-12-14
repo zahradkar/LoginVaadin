@@ -4,6 +4,7 @@ import com.vaadin.flow.component.HasValueAndElement;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.textfield.PasswordField;
@@ -25,17 +26,13 @@ public class RegistrationForm extends FormLayout {
 		submitButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
 
 		H3 title = new H3("Signup form");
-		add(title, username, password, passwordConfirm, errorMessageField, submitButton);
+		add(title, username, password, passwordConfirm, errorMessageField, submitButton, new Anchor("http://localhost:8080/login", "Login"));
 
 		// Max width of the Form
 		setMaxWidth("500px");
 
-		// Allow the form layout to be responsive.
-		// On device widths 0-490px we have one column.
-		// Otherwise, we have two columns.
 		setResponsiveSteps(new ResponsiveStep("0", 1, ResponsiveStep.LabelsPosition.TOP), new ResponsiveStep("490px", 2, ResponsiveStep.LabelsPosition.TOP));
 
-		// These components always take full width
 		setColspan(title, 2);
 		setColspan(username, 2);
 		setColspan(errorMessageField, 2);

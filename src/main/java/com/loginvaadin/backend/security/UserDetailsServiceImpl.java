@@ -22,7 +22,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	}
 
 	private static List<GrantedAuthority> getAuthorities(User user) {
-		return user.getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+		return user.getRoles().stream()
+				.map(role -> new SimpleGrantedAuthority("ROLE_" + role))
 				.collect(Collectors.toList());
 	}
 
@@ -32,7 +33,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		User user = userRepository.findByUsername(username);
 		if (user == null)
 			throw new UsernameNotFoundException("No user present with username: " + username);
-		else
-			return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthorities(user));
+		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthorities(user));
 	}
 }

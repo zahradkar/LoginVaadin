@@ -22,35 +22,25 @@ public class RegistrationFormBinder {
 		BeanValidationBinder<User> binder = new BeanValidationBinder<>(User.class);
 		binder.bindInstanceFields(registrationForm);
 
-		// A custom validator for password fields to handle password-confirmation logic
 		binder.forField(registrationForm.getPasswordField()).withValidator(this::passwordValidator).bind("password");
 
-		// The second password field is not connected to the Binder, but we
-		// want the binder to re-check the password validator when the field
-		// value changes. The easiest way is just to do that manually.
 		registrationForm.getPasswordConfirmField().addValueChangeListener(e -> {
-			// The user has modified the second field, now we can validate and show errors.
-			// See passwordValidator() for how this flag is used.
 			enablePasswordValidation = true;
-
 			binder.validate();
 		});
 
-		// Set the label where bean-level error messages go
 		binder.setStatusLabel(registrationForm.getErrorMessageField());
 
-		// And finally the submit button
 		registrationForm.getSubmitButton().addClickListener(event -> {
 			User userBean = new User(); // Create empty bean to store the details into
 			binder.writeBeanIfValid(userBean); // Run validators and write the values to the bean
 
-			if (userService.isRegistered(userBean.getUsername())) {
-				showFail();
-				return;
+			try {
+				userService.add(userBean.getUsername(), userBean.getPassword());
+				showSuccess(userBean);
+			} catch (Exception e) {
+				showFail(e.getMessage());
 			}
-
-			userService.registerNewUser(userBean.getUsername(), userBean.getPassword());
-			showSuccess(userBean);
 		});
 	}
 
@@ -80,8 +70,8 @@ public class RegistrationFormBinder {
 		// TODO redirect the user to another view
 	}
 
-	private void showFail() { // We call this method when form submission has succeeded
-		Notification notification = Notification.show("The username is already taken. Choose other.");
+	private void showFail(String exception) {
+		Notification notification = Notification.show(exception);
 		notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
 	}
 }
