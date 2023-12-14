@@ -22,7 +22,7 @@ public class SecurityUser implements UserDetails {
 
 	public static SecurityUser build(User user) {
 		List<GrantedAuthority> authorities = user.getRoles().stream()
-				.map(role -> new SimpleGrantedAuthority(role.getName()))
+				.map(role -> new SimpleGrantedAuthority(role.name()))
 				.collect(Collectors.toList());
 
 		return new SecurityUser(user.getUsername(), user.getPassword(), authorities);

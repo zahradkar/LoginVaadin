@@ -14,16 +14,14 @@ public class User {
 	@NotBlank
 	private String username;
 	private String password;
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinTable(name = "user_roles",
-			joinColumns = @JoinColumn(name = "user_id"),
-			inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@Enumerated(EnumType.STRING)
+	@ElementCollection(fetch = FetchType.EAGER)
 	private Set<Role> roles = new HashSet<>();
 
 	public User(String username, String password) {
 		this.username = username;
 		this.password = password;
-		roles.add(new Role("USER"));
+		roles.add(Role.USER);
 	}
 
 	public User() {
